@@ -3,6 +3,9 @@ const http = require('http')
 const path = require('path/posix')
 const url = require('url')
 
+
+//////////////////////////
+// // Read and write Files
 // //Blocking, syncronous way
 // const textIn = fs.readFileSync('./starter/txt/input.txt','utf-8')
 // console.log(textIn)
@@ -37,6 +40,14 @@ const server = http.createServer((req,res) => {
         res.end('This is the OVERVIEW')
     } else if (pathName === '/product'){
         res.end('This is the PRODUCT')
+    } else if (pathName === '/api'){
+
+        fs.readFile(`${__dirname}/starter/dev-data/data.json`, 'utf-8', (err, data) => {
+            const productData = JSON.parse(data)
+            res.writeHead(200, { 'Content-Type' : 'application/json'})
+            res.end(data)
+        })
+
     } else {
         res.writeHead(404, {
             'Content-type': 'text/html'
