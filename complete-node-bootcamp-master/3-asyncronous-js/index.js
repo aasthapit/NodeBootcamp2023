@@ -33,7 +33,19 @@ const getDogPic = async () => {
     console.log('Random dog image saved to file!');
   } catch (err) {
     console.log(err);
+
+    throw err;
   }
+  return '2: READY 🐶';
 };
 
-getDogPic();
+console.log('1: Will get dog pics');
+
+getDogPic()
+  .then((x) => {
+    console.log(x);
+    console.log('3: Done getting dog pics');
+  })
+  .catch((err) => {
+    console.log('Error');
+  });
