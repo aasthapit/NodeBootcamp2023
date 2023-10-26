@@ -20,7 +20,7 @@ const writeFilePro = (file, data) => {
   });
 };
 
-readFilePro(`${__dirname}/dog.txt`)
+readFilePro(`${__dirname}/doggg.txt`)
   .then((data) => {
     console.log(`Breed: ${data}`);
     return superagent.get(`https://dog.ceo/api/breed/${data}/images/random`);
@@ -33,5 +33,5 @@ readFilePro(`${__dirname}/dog.txt`)
     console.log('Random dog image saved to file');
   })
   .catch((err) => {
-    console.log(err.message);
+    console.log(err);
   });
