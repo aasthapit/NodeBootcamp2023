@@ -26,7 +26,7 @@ exports.getAllTours = async (req, res) => {
       query = query.sort('-createdAt');
     }
 
-    // FIELD LIMITING
+    // 3) FIELD LIMITING
 
     if (req.query.field) {
       const fields = req.query.field.split(',').join(' ');
@@ -34,6 +34,18 @@ exports.getAllTours = async (req, res) => {
     } else {
       query = query.sort('-__v');
     }
+
+    // 4) PAGINATION
+    const page = req.query.page * 1 || 1;
+    const limit = req.query.limit * 1 || 10;
+    const skip = (page - 1) * limit;
+    query = query.skip(skip).limit(limit);
+
+    if (req.query.page) {
+      const numTours = await Tour.countDocuments();
+      if (skip >= numTours) throw new Error('Page not found');
+    }
+
     //EXECUTE QUERY
     const tours = await query;
 
